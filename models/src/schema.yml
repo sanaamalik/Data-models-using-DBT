@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: job_listing
+    description: |
+      This model represents foundation production data.
+    columns:
+      - name: srno
+        description: Job number
+        tests:
+          - unique
+        data_type: text
+      - name: customer
+        description: Name of the home owner
+        data_type: text
+      - name: lead
+        description: Name of the crew lead
+        data_type: text
+      - name: city
+        description: City where the work is done
+        data_type: text
+      - name: location
+        description: Address of the work location
+        data_type: text
+      - name: month
+        description: Month when the job was created
+        tests:
+          - not_null
+        data_type: timestamp
+      - name: contract
+        description: Contract amount for the job
+        data_type: numeric
+      - name: sales_men
+        description: Name of the engineer or salesperson
+        data_type: text
+      - name: center
+        description: Class of the job
+        data_type: text
