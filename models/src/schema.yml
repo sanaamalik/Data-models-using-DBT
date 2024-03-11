@@ -26,7 +26,7 @@ models:
         description: Month when the job was created
         tests:
           - not_null
-        data_type: timestamp
+        data_type: numeric
       - name: contract
         description: Contract amount for the job
         data_type: numeric
