@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: job_listing
+  - name: jobs
     description: |
       This model represents foundation production data.
     columns:
@@ -36,3 +36,88 @@ models:
       - name: center
         description: Class of the job
         data_type: text
+
+  - name: invoice
+    description: |
+      This model represents foundation invoices data.
+    columns:
+      - name: job_id
+        description: The job ID extracted from the CustomerRef name
+        tests:
+          - not_null
+        data_type: string
+      - name: amount
+        description: The amount of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: description
+        description: The description of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: detail_type
+        description: The detail type of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: item_name
+        description: The name of the item
+        tests:
+          - not_null
+        data_type: string
+      - name: unit_price
+        description: The unit price of the item
+        tests:
+          - not_null
+        data_type: numeric
+      - name: quantity
+        description: The quantity of the item
+        tests:
+          - not_null
+        data_type: numeric
+
+  - name: expense
+    description: |
+      This model represents foundation expense data.
+    columns:
+      - name: job_id
+        description: The job ID extracted from the CustomerRef in ItemBasedExpenseLineDetail
+        tests:
+          - not_null
+        data_type: string
+      - name: description
+        description: The description of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: amount
+        description: The amount of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: detail_type
+        description: The detail type of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: customer_name
+        description: The name of the customer
+        tests:
+          - not_null
+        data_type: string
+      - name: billable_status
+        description: The billable status of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: qty
+        description: The quantity of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: unit_price
+        description: The unit price of the line
+        tests:
+          - not_null
+        data_type: numeric

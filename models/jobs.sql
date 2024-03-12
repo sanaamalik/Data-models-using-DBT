@@ -6,7 +6,7 @@ select
     "Crew_Lead" as "lead",
     "City" as "city",
     "Address" as "location",
-    EXTRACT(MONTH FROM "Created"::timestamp) as "month",
+    TO_CHAR("Created"::timestamp, 'Month') as "month",
     "Contract_Amount" as "contract",
     "Engineer" as "sales_men",
     "Class" as "center"
