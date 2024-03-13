@@ -1,14 +1,31 @@
 {{ config(materialized='table') }}
 
 SELECT
- 	split_part(line->'ItemBasedExpenseLineDetail'->>'CustomerRef', ' ', 1) AS job_id,
-    (line->>'Description') AS description,
-    (line->>'Amount')::numeric AS amount,
+    CASE 
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' AND line->'ItemBasedExpenseLineDetail' IS NOT NULL AND regexp_match(line->'ItemBasedExpenseLineDetail'->'CustomerRef'->>'name', '\d{3}-\d{3}') IS NOT NULL THEN
+            regexp_replace((regexp_match(line->'ItemBasedExpenseLineDetail'->'CustomerRef'->>'name', '\d{3}-\d{3}'))[1], '[{}]', '', 'g')
+        WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' AND line->'AccountBasedExpenseLineDetail' IS NOT NULL AND regexp_match(line->'AccountBasedExpenseLineDetail'->'CustomerRef'->>'name', '\d{3}-\d{3}') IS NOT NULL THEN
+            regexp_replace((regexp_match(line->'AccountBasedExpenseLineDetail'->'CustomerRef'->>'name', '\d{3}-\d{3}'))[1], '[{}]', '', 'g')
+        ELSE NULL
+    END AS job_id,
     (line->>'DetailType') AS detail_type,
-    (line->'ItemBasedExpenseLineDetail'->'CustomerRef'->>'name') AS customer_name,
-    (line->'ItemBasedExpenseLineDetail'->>'BillableStatus') AS billable_status,
-    (line->'ItemBasedExpenseLineDetail'->>'Qty')::numeric AS qty,
-    (line->'ItemBasedExpenseLineDetail'->>'UnitPrice')::numeric AS unit_price
+	CASE 
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->>'Description')
+		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->'AccountRef'->>'name')
+	END AS description,
+    (line->>'Amount')::numeric AS amount,
+	CASE 
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemBasedExpenseLineDetail'->>'BillableStatus')
+		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->>'BillableStatus')
+	END AS billable_status,
+	CASE 
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemBasedExpenseLineDetail'->>'Qty')::numeric 
+		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->>'Qty')::numeric 
+	END AS quatitiy,
+	CASE 
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemBasedExpenseLineDetail'->>'UnitPrice')::numeric 
+		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->>'UnitPrice')::numeric 
+	END AS unit_price
 FROM
-	public."qb_full_purchases",
+    public."qb_full_purchases",
     json_array_elements("qb_full_purchases"."Line"::json) AS line
