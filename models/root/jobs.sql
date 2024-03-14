@@ -10,7 +10,6 @@ select
     "Contract_Amount" as "contract",
     "Engineer" as "sales_men",
     "Class" as "center",
-    "Engineer" as "engineer",
     "Permit_Issue_Fee" as "permit",
     "Job_Start_Date" as "job_start",
     "Job_Finish_Date" as "job_end"
