@@ -5,7 +5,7 @@ SELECT
     CASE 
         WHEN "ParentRef" IS NOT NULL THEN "ParentRef"->>'value'
         ELSE NULL
-	END AS parentref,
+	END AS ref,
     "AccountType" as type,
     "AccountSubType" as subtype,
     "Classification" as classification,

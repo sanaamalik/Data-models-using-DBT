@@ -36,11 +36,11 @@ SELECT
 		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->>'UnitPrice')::numeric 
 	END AS unit_price,
     CASE 
-        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemRef'->>'name')
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemBasedExpenseLineDetail'->'ItemRef'->>'name')
 		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->'AccountRef'->>'name')
 	END AS item_name,
     CASE 
-        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemRef'->>'value')
+        WHEN (line->>'DetailType') = 'ItemBasedExpenseLineDetail' THEN (line->'ItemBasedExpenseLineDetail'->'ItemRef'->>'value')
 		WHEN (line->>'DetailType') = 'AccountBasedExpenseLineDetail' THEN (line->'AccountBasedExpenseLineDetail'->'AccountRef'->>'value')
 	END AS item_value
 FROM
