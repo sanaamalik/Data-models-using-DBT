@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 select
     "Job_Number" as "job_id",
     "Home_Owner" as "customer",

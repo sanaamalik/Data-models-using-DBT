@@ -16,6 +16,5 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  fondation:
-    example:
-      +materialized: view
+  jobs:
+    materialized: view
