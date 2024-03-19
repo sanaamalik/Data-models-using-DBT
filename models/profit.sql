@@ -9,7 +9,7 @@ WITH job_expense AS (
     FROM 
         {{ ref('jobs') }} j
     INNER JOIN 
-        {{ ref('expense') }} e ON e.job_id = j.job_id
+        {{ ref('expenses') }} e ON e.job_id = j.job_id
     ORDER BY 
         job_id
 ),
@@ -29,7 +29,7 @@ invoices AS (
     FROM 
         {{ ref('jobs') }} j
     INNER JOIN 
-        {{ ref('invoice') }} i ON i.job_id = j.job_id
+        {{ ref('invoices') }} i ON i.job_id = j.job_id
     WHERE 
         i.detail_type = 'SubTotalLineDetail'
     ORDER BY 

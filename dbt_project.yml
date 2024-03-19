@@ -18,3 +18,7 @@ clean-targets:
 models:
   jobs:
     materialized: view
+  invoices:
+    materialized: view
+  expenses:
+    materialized: view

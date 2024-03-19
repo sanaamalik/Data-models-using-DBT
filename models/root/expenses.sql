@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 WITH expenses AS (
     SELECT 
     CASE 

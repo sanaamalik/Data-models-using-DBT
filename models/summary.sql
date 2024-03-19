@@ -5,7 +5,7 @@ WITH labor AS (
         job_id, 
         SUM(amount) AS labor
     FROM 
-        {{ ref('expense') }}
+        {{ ref('expenses') }}
     WHERE 
         description LIKE '%Crew Wages%'
     GROUP BY 
@@ -16,7 +16,7 @@ commission AS (
         job_id, 
         SUM(amount) AS commission
     FROM 
-        {{ ref('expense') }}
+        {{ ref('expenses') }}
     WHERE 
         description LIKE '%Sales Commission%'
     GROUP BY 

@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 WITH invoices AS (
     SELECT
         (REGEXP_MATCHES(split_part("CustomerRef"->>'name', ' ', 1), '^\d{3}-\d{3}$'))[1] AS job_id,
