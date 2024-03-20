@@ -1,0 +1,123 @@
+version: 2
+
+models:
+  - name: jobs
+    description: |
+      This model represents foundation production data.
+    columns:
+      - name: srno
+        description: Job number
+        tests:
+          - unique
+        data_type: text
+      - name: customer
+        description: Name of the home owner
+        data_type: text
+      - name: lead
+        description: Name of the crew lead
+        data_type: text
+      - name: city
+        description: City where the work is done
+        data_type: text
+      - name: location
+        description: Address of the work location
+        data_type: text
+      - name: month
+        description: Month when the job was created
+        tests:
+          - not_null
+        data_type: numeric
+      - name: contract
+        description: Contract amount for the job
+        data_type: numeric
+      - name: sales_men
+        description: Name of the engineer or salesperson
+        data_type: text
+      - name: center
+        description: Class of the job
+        data_type: text
+
+  - name: invoice
+    description: |
+      This model represents foundation invoices data.
+    columns:
+      - name: job_id
+        description: The job ID extracted from the CustomerRef name
+        tests:
+          - not_null
+        data_type: string
+      - name: amount
+        description: The amount of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: description
+        description: The description of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: detail_type
+        description: The detail type of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: item_name
+        description: The name of the item
+        tests:
+          - not_null
+        data_type: string
+      - name: unit_price
+        description: The unit price of the item
+        tests:
+          - not_null
+        data_type: numeric
+      - name: quantity
+        description: The quantity of the item
+        tests:
+          - not_null
+        data_type: numeric
+
+  - name: expense
+    description: |
+      This model represents foundation expense data.
+    columns:
+      - name: job_id
+        description: The job ID extracted from the CustomerRef in ItemBasedExpenseLineDetail
+        tests:
+          - not_null
+        data_type: string
+      - name: description
+        description: The description of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: amount
+        description: The amount of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: detail_type
+        description: The detail type of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: customer_name
+        description: The name of the customer
+        tests:
+          - not_null
+        data_type: string
+      - name: billable_status
+        description: The billable status of the line
+        tests:
+          - not_null
+        data_type: string
+      - name: qty
+        description: The quantity of the line
+        tests:
+          - not_null
+        data_type: numeric
+      - name: unit_price
+        description: The unit price of the line
+        tests:
+          - not_null
+        data_type: numeric
